@@ -5,7 +5,13 @@ $(document).on('pagecreate', '#feedPage', function(event) {
 	
 	// Use an HTML GET request to obtain data from an API  -->
 	var xmlhttp=new XMLHttpRequest();
-	xmlhttp.open("GET", feedURL, false);
+	
+	xmlhttp.onreadystatechange = function XMLHttpRequest() {
+  if (this.readyState == 4 && this.status == 200) {
+    document.getElementById("demo").innerHTML = this.responseText;
+  }
+};
+	xmlhttp.open("GET", feedURL, true);
 	xmlhttp.send();
 		
 		
@@ -19,7 +25,7 @@ $(document).on('pagecreate', '#feedPage', function(event) {
 	var ractive = new Ractive({
     	el: 'container', <!-- where -->
     	template: '#myTemplate', <!-- how -->
-    	data: { weather : weather.consolidated_weather } <!-- what - specify the list of weather reports using dot notation-->
+    	data: { weather : weather.consolidated_weather } //what - specify the list of weather reports using dot notation
 	});
 	
 });
